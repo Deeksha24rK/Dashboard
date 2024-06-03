@@ -1,5 +1,5 @@
 import TopBox from "../../components/topBox/TopBox";
-import ChartBox from "../../components/chartBox/chartBox";
+import ChartBox from "../../components/chartBox/ChartBox";
 import "./home.scss";
 import {
   chartBoxConversion,
