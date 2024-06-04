@@ -11,7 +11,7 @@ import {
 } from "../../data";
 import PieChartBox from "../../components/pieChartBox/PieChartBox";
 import BarChartBox from "../../components/barChartBox/BarChartBox";
-import BigChartBox from "../../components/bigChartBox/bigChartBox";
+import BigChartBox from "../../components/bigChartBox/BigChartBox";
 
 const Home = () => {
   return (
