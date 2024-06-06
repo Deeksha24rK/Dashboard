@@ -1,9 +1,9 @@
 import { GridColDef } from "@mui/x-data-grid";
-import DataTable from "../../components/dataTable/DataTable";
-import "./users.scss";
-import { userRows } from "../../data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Add from "../../components/add/Add";
+import DataTable from "../../components/dataTable/DataTable";
+import { REACT_APP_API_URL } from "../../data";
+import "./users.scss";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -57,6 +57,27 @@ const columns: GridColDef[] = [
 
 const Users = () => {
   const [open, setOpen] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    // Function to fetch users from the API
+    async function fetchUsers() {
+      try {
+        // Use the fetch function to send a GET request to the API
+        const response = await fetch(`${REACT_APP_API_URL}/users`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        const users = await response.json();
+        setUsers(users);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+
+    fetchUsers();
+  }, []);
+
   return (
     <div className="users">
       <div className="info">
@@ -64,7 +85,7 @@ const Users = () => {
         <button onClick={() => setOpen(true)}>Add New User</button>
       </div>
       <div>
-        <DataTable slug="users" columns={columns} rows={userRows} />
+        <DataTable slug="users" columns={columns} rows={users} />
         {open && <Add slug="user" columns={columns} setOpen={setOpen} />}
       </div>
     </div>
