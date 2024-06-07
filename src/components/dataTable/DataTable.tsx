@@ -37,6 +37,7 @@ const DataTable = (props: Props) => {
         className="dataGrid"
         rows={props.rows}
         columns={[...props.columns, actionColumn]}
+        getRowId={(row) => row._id} // Specify the custom ID field
         initialState={{
           pagination: {
             paginationModel: {
