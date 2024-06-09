@@ -69,6 +69,7 @@ const Users = () => {
           throw new Error("Network response was not ok " + response.statusText);
         }
         const users = await response.json();
+        // console.log("response", response);
         setUsers(users);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
@@ -76,7 +77,7 @@ const Users = () => {
     }
 
     fetchUsers();
-  }, []);
+  });
 
   return (
     <div className="users">

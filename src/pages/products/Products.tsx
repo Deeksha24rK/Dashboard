@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Add from "../../components/add/Add";
 import DataTable from "../../components/dataTable/DataTable";
-import { products } from "../../data";
+// import { products } from "../../data";
 import "./products.scss";
 import { GridColDef } from "@mui/x-data-grid";
+import axios from "axios";
+import { REACT_APP_API_URL } from "../../data";
 
 const columns: GridColDef[] = [
   // { field: "_id", headerName: "ID", width: 90 },
@@ -55,6 +57,25 @@ const columns: GridColDef[] = [
 
 const Products = () => {
   const [open, setOpen] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${REACT_APP_API_URL}/products`);
+        if (response.status !== 200) {
+          throw new Error("Network response was not ok " + response);
+        }
+        const products = await response.data;
+        setProducts(products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  });
+
   return (
     <div className="products">
       <div className="info">
